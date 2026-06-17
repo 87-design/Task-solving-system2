@@ -27,6 +27,7 @@ body{
   -webkit-tap-highlight-color:transparent;
   font-family:-apple-system,'Helvetica Neue',sans-serif;
   -webkit-font-smoothing:antialiased;
+  touch-action:manipulation;
   /* iPhone safe area */
   padding-top:env(safe-area-inset-top);
   padding-bottom:env(safe-area-inset-bottom);
@@ -309,7 +310,7 @@ body{
   box-shadow:0 2px 8px rgba(10,143,163,.18);transition:transform .15s;
 }
 .cal-nav-btn:active{transform:scale(.9);}
-.cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:4px;}
+.cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:4px;margin-top:18px;}
 .cal-wd{font-size:11px;font-weight:700;color:var(--tx3);text-align:center;padding:4px 0;}
 .cal-wd.sun{color:#C0392B;}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px 3px;grid-auto-rows:clamp(48px,9.5vw,64px);}
@@ -1355,6 +1356,27 @@ function deleteDayEvent(idx){
   saveEvents(viewDayStr,evs);
   renderDay();
 }
+
+// ── Swipe for calendar ────────────────────────
+(function(){
+  let sx=0,sy=0;
+  const el=document.getElementById('screen-calendar');
+  el.addEventListener('touchstart',e=>{
+    sx=e.touches[0].clientX;sy=e.touches[0].clientY;
+  },{passive:true});
+  el.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-sx;
+    const dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>48){
+      calNav(dx<0?1:-1);
+    }
+  },{passive:true});
+})();
+
+// ── Prevent pinch zoom ────────────────────────
+document.addEventListener('gesturestart',e=>e.preventDefault(),{passive:false});
+document.addEventListener('gesturechange',e=>e.preventDefault(),{passive:false});
+document.addEventListener('touchmove',e=>{if(e.touches.length>1)e.preventDefault();},{passive:false});
 
 // ── Init ──────────────────────────────────────
 updDateUI();ra();updW();drawSK();loadMindset();
