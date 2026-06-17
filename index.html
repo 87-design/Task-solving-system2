@@ -296,7 +296,11 @@ body{
 #screen-task{position:relative;z-index:1;}
 
 /* ── CALENDAR ── */
-.cal-scr-inner{padding:16px 16px calc(16px + env(safe-area-inset-bottom));}
+.cal-scr-inner{
+  padding:16px 16px calc(16px + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;
+  min-height:calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+}
 .cal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-top:8px;}
 .cal-top h2{font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.4px;}
 .cal-nav-btn{
@@ -310,9 +314,9 @@ body{
 .cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:4px;}
 .cal-wd{font-size:11px;font-weight:700;color:var(--tx3);text-align:center;padding:4px 0;}
 .cal-wd.sun{color:#C0392B;}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px 3px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px 3px;flex:1;grid-auto-rows:1fr;align-content:stretch;}
 .cal-cell{
-  min-height:52px;border-radius:9px;padding:5px 3px 4px;
+  border-radius:9px;padding:5px 3px 4px;
   background:#fff;cursor:pointer;
   display:flex;flex-direction:column;align-items:center;
   transition:background .15s;position:relative;
@@ -590,7 +594,7 @@ function isToday(){return viewDateStr===todayStr;}
 function isPast(){return viewDateStr<todayStr;}
 function isFuture(){return viewDateStr>todayStr;}
 
-const DEFAULT_TASKS={am:[{id:1,text:'朝礼・チームMTG',q:0,done:false,open:false,cr:0,subs:[{id:101,text:'資料確認',done:false},{id:102,text:'議事録準備',done:false}]},{id:2,text:'メールチェック・返信',q:2,done:false,open:false,cr:0,subs:[]}],pm:[{id:3,text:'報告書の作成',q:0,done:false,open:false,cr:0,subs:[{id:201,text:'データ収集',done:false},{id:202,text:'草稿を書く',done:false},{id:203,text:'上司に確認依頼',done:false}]},{id:4,text:'上司にレビュー依頼',q:1,done:false,open:false,cr:0,subs:[]}],night:[{id:5,text:'明日のタスクを整理',q:1,done:false,open:false,cr:0,subs:[]}]};
+const DEFAULT_TASKS={am:[],pm:[],night:[]};
 
 function loadDateData(dk){
   const raw=localStorage.getItem(lsTasksKey(dk));
