@@ -136,6 +136,26 @@ body{
 }
 .mindset-input::placeholder{color:var(--tx3);}
 
+/* ── DATE NAV ── */
+.date-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;}
+.date-nav-btn{
+  width:32px;height:32px;border-radius:50%;border:none;
+  background:rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:var(--tx2);font-size:16px;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow);transition:transform .15s;
+}
+.date-nav-btn:active{transform:scale(.9);}
+.date-nav-center{flex:1;text-align:center;}
+.date-label{font-size:13px;color:var(--tx3);font-weight:400;}
+.date-badge{
+  display:inline-block;font-size:10px;font-weight:700;
+  padding:2px 8px;border-radius:20px;margin-left:6px;vertical-align:middle;
+}
+.date-badge.today{background:var(--ac);color:#fff;}
+.date-badge.past{background:var(--s3);color:var(--ac2);}
+.date-badge.future{background:#FEF3E2;color:#8A5A00;}
+
 /* ── MAIN ── */
 .app{position:relative;z-index:5;width:100%;padding:0 16px calc(88px + env(safe-area-inset-bottom));}
 
@@ -266,9 +286,162 @@ body{
 .sa input::placeholder{color:var(--tx3);}
 .en{font-size:13px;color:var(--tx3);padding:12px 0 4px;text-align:center;}
 
+/* ── SCREENS ── */
+.screen{
+  position:fixed;inset:0;z-index:50;overflow-y:auto;
+  background:var(--bg);
+  padding-top:env(safe-area-inset-top);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+#screen-task{position:relative;z-index:1;}
+
+/* ── CALENDAR ── */
+.cal-scr-inner{padding:16px 16px calc(40px + env(safe-area-inset-bottom));}
+.cal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-top:8px;}
+.cal-top h2{font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.4px;}
+.cal-nav-btn{
+  width:36px;height:36px;border-radius:50%;border:none;
+  background:rgba(255,255,255,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:var(--tx2);font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow);transition:transform .15s;
+}
+.cal-nav-btn:active{transform:scale(.9);}
+.cal-weekdays{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  margin-bottom:6px;
+}
+.cal-wd{font-size:11px;font-weight:600;color:var(--tx3);text-align:center;padding:4px 0;}
+.cal-wd.sun{color:#D84F3F;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.cal-cell{
+  min-height:56px;border-radius:10px;padding:5px 4px 4px;
+  background:rgba(255,255,255,.7);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;
+  transition:background .15s;position:relative;
+  box-shadow:0 1px 4px rgba(10,143,163,.06);
+}
+.cal-cell:active{background:rgba(10,143,163,.1);}
+.cal-cell.cal-empty{background:transparent;box-shadow:none;cursor:default;pointer-events:none;}
+.cal-cell.cal-today{background:var(--ac);}
+.cal-cell.cal-today .cal-num{color:#fff;font-weight:700;}
+.cal-cell.cal-today .cal-ev-text{color:rgba(255,255,255,.85);}
+.cal-num{font-size:14px;font-weight:500;color:var(--tx);line-height:1.2;}
+.cal-cell.cal-sun .cal-num{color:#D84F3F;}
+.cal-cell.cal-today .cal-num{color:#fff;}
+.cal-dots{display:flex;gap:2px;margin-top:3px;justify-content:center;}
+.cal-dot{width:5px;height:5px;border-radius:50%;}
+.cal-dot-task{background:var(--dn);}
+.cal-dot-event{background:var(--ac2);}
+.cal-ev-text{font-size:9px;color:var(--tx3);margin-top:2px;line-height:1.2;text-align:center;width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding:0 2px;}
+
+/* ── DAY DETAIL ── */
+.day-scr-inner{padding:0 0 calc(60px + env(safe-area-inset-bottom));}
+.day-top{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px 12px;
+  border-bottom:1px solid rgba(159,214,221,.3);
+}
+.day-back-btn{
+  width:32px;height:32px;border-radius:50%;border:none;
+  background:rgba(255,255,255,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:var(--tx2);font-size:16px;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow);
+}
+.day-title-block{flex:1;}
+.day-title{font-size:18px;font-weight:700;color:var(--tx);letter-spacing:-.3px;}
+.day-subtitle{font-size:12px;color:var(--tx3);margin-top:2px;}
+.pill-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:52px;height:32px;border-radius:50px;border:1.5px solid var(--bd2);
+  background:rgba(255,255,255,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:var(--ac2);font-size:12px;font-weight:600;cursor:pointer;
+  box-shadow:var(--shadow);padding:0 12px;transition:transform .15s;
+  letter-spacing:-.1px;
+}
+.pill-btn:active{transform:scale(.93);}
+.pill-btn.primary{background:var(--ac);color:#fff;border-color:var(--ac);}
+.day-events-section{padding:16px 16px 0;}
+.day-ev-label{font-size:11px;font-weight:600;color:var(--tx3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;}
+.day-ev-item{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;background:rgba(255,255,255,.85);
+  border-radius:var(--radius-sm);margin-bottom:8px;
+  box-shadow:var(--shadow);
+}
+.day-ev-time{font-size:12px;color:var(--tx3);font-weight:500;flex-shrink:0;}
+.day-ev-text-el{flex:1;font-size:14px;color:var(--tx);font-weight:500;}
+.day-ev-del{border:none;background:none;color:var(--tx3);font-size:18px;cursor:pointer;padding:0 2px;line-height:1;}
+.day-ev-empty{font-size:14px;color:var(--tx3);text-align:center;padding:32px 0;font-weight:400;}
+.day-add-row{
+  display:flex;gap:8px;padding:12px 16px 0;
+}
+.day-add-row input{
+  flex:1;font-size:14px;padding:10px 12px;border:none;border-radius:var(--radius-xs);
+  background:rgba(215,251,255,.7);color:var(--tx);
+  font-family:-apple-system,'Helvetica Neue',sans-serif;
+}
+.day-add-row input:focus{outline:none;background:rgba(215,251,255,.95);box-shadow:0 0 0 2px rgba(10,143,163,.2);}
+.day-add-row input::placeholder{color:var(--tx3);}
+.day-add-btn{
+  width:38px;height:38px;border-radius:50%;border:none;
+  background:var(--ac);color:#fff;font-size:20px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(10,143,163,.3);flex-shrink:0;
+}
+.day-task-btn-row{
+  padding:20px 16px 0;display:flex;justify-content:center;
+}
+
+/* ── TASK NAV PILLS ── */
+.task-nav-pills{display:flex;justify-content:center;gap:10px;padding:8px 0 4px;}
+
 </style>
 </head>
 <body>
+
+<!-- CALENDAR SCREEN -->
+<div id="screen-calendar" class="screen" style="display:none">
+  <div class="cal-scr-inner">
+    <div class="cal-top">
+      <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
+      <h2 id="cal-month-label"></h2>
+      <button class="cal-nav-btn" onclick="calNav(1)">›</button>
+    </div>
+    <div class="cal-weekdays">
+      <div class="cal-wd">月</div><div class="cal-wd">火</div><div class="cal-wd">水</div>
+      <div class="cal-wd">木</div><div class="cal-wd">金</div><div class="cal-wd">土</div>
+      <div class="cal-wd sun">日</div>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+  </div>
+</div>
+
+<!-- DAY DETAIL SCREEN -->
+<div id="screen-day" class="screen" style="display:none">
+  <div class="day-scr-inner">
+    <div class="day-top">
+      <button class="day-back-btn" onclick="goScreen('calendar')">‹</button>
+      <div class="day-title-block">
+        <div class="day-title" id="day-title"></div>
+        <div class="day-subtitle" id="day-subtitle"></div>
+      </div>
+      <button class="pill-btn primary" onclick="goToTask()">タスク</button>
+    </div>
+    <div class="day-events-section">
+      <div class="day-ev-label">予定</div>
+      <div id="day-events-list"></div>
+      <div class="day-add-row">
+        <input type="text" id="day-event-input" placeholder="予定を追加…">
+        <button class="day-add-btn" onclick="addDayEvent()">+</button>
+      </div>
+    </div>
+    <div class="day-task-btn-row">
+      <button class="pill-btn" onclick="goToTask()" style="min-width:120px;height:36px;font-size:13px;">📋 タスク管理を開く</button>
+    </div>
+  </div>
+</div>
 
 <div class="wl" id="wl" style="height:0"><canvas class="wc" id="wc"></canvas></div>
 <canvas id="ic"></canvas>
@@ -304,20 +477,79 @@ body{
 </div>
 
 <div class="app">
-  <div class="hd"><div><h1>今日のタスク</h1><div class="dl" id="dl"></div></div></div>
+  <div class="hd"><div style="width:100%">
+    <h1 id="hd-title">今日のタスク</h1>
+    <div class="date-nav">
+      <button class="date-nav-btn" onclick="navDate(-1)">‹</button>
+      <div class="date-nav-center">
+        <span class="date-label" id="dl"></span>
+        <span class="date-badge" id="date-badge"></span>
+      </div>
+      <button class="date-nav-btn" onclick="navDate(1)">›</button>
+    </div>
+    <div class="task-nav-pills">
+      <button class="pill-btn" onclick="goScreen('calendar')">月間</button>
+      <button class="pill-btn" onclick="goToSchedule()">予定</button>
+    </div>
+  </div></div>
   <div id="bc"></div>
 </div>
 
 <script>
 // ── LocalStorage ──────────────────────────────
-const LS_TASKS='todaytasks_tasks',LS_DONE='todaytasks_done',LS_MINDSET='todaytasks_mindset',LS_DATE='todaytasks_date',LS_MUSIC='todaytasks_music';
-const todayStr=(()=>{const n=new Date();return`${n.getFullYear()}-${n.getMonth()+1}-${n.getDate()}`;})();
-if(localStorage.getItem(LS_DATE)!==todayStr){localStorage.removeItem(LS_TASKS);localStorage.removeItem(LS_DONE);localStorage.setItem(LS_DATE,todayStr);}
+const LS_MINDSET='todaytasks_mindset';
+const LS_MUSIC='todaytasks_music';
+function dateKey(d){return`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;}
+function lsTasksKey(dk){return`todaytasks_tasks_${dk}`;}
+function lsDoneKey(dk){return`todaytasks_done_${dk}`;}
+
+const todayStr=dateKey(new Date());
+let viewDateStr=todayStr;
+function isToday(){return viewDateStr===todayStr;}
+function isPast(){return viewDateStr<todayStr;}
+function isFuture(){return viewDateStr>todayStr;}
+
 const DEFAULT_TASKS={am:[{id:1,text:'朝礼・チームMTG',q:0,done:false,open:false,cr:0,subs:[{id:101,text:'資料確認',done:false},{id:102,text:'議事録準備',done:false}]},{id:2,text:'メールチェック・返信',q:2,done:false,open:false,cr:0,subs:[]}],pm:[{id:3,text:'報告書の作成',q:0,done:false,open:false,cr:0,subs:[{id:201,text:'データ収集',done:false},{id:202,text:'草稿を書く',done:false},{id:203,text:'上司に確認依頼',done:false}]},{id:4,text:'上司にレビュー依頼',q:1,done:false,open:false,cr:0,subs:[]}],night:[{id:5,text:'明日のタスクを整理',q:1,done:false,open:false,cr:0,subs:[]}]};
-let tasks=JSON.parse(localStorage.getItem(LS_TASKS)||'null')||JSON.parse(JSON.stringify(DEFAULT_TASKS));
-let done=JSON.parse(localStorage.getItem(LS_DONE)||'[]');
+
+function loadDateData(dk){
+  const raw=localStorage.getItem(lsTasksKey(dk));
+  const t=raw?JSON.parse(raw):(dk>=todayStr?JSON.parse(JSON.stringify(DEFAULT_TASKS)):{am:[],pm:[],night:[]});
+  const d=JSON.parse(localStorage.getItem(lsDoneKey(dk))||'[]');
+  return{tasks:t,done:d};
+}
+
+let {tasks,done}=loadDateData(viewDateStr);
 let nid=300;
 [...Object.values(tasks).flat(),...done].forEach(t=>{nid=Math.max(nid,t.id+1);(t.subs||[]).forEach(s=>nid=Math.max(nid,s.id+1));});
+
+function navDate(dir){
+  const d=new Date(viewDateStr.split('-').map(Number).reduce((a,v,i)=>i===0?new Date(v,0,1):a,(d=>d)(new Date())));
+  // parse viewDateStr properly
+  const parts=viewDateStr.split('-').map(Number);
+  const cur=new Date(parts[0],parts[1]-1,parts[2]);
+  cur.setDate(cur.getDate()+dir);
+  viewDateStr=dateKey(cur);
+  const loaded=loadDateData(viewDateStr);
+  tasks=loaded.tasks;done=loaded.done;
+  nid=300;
+  [...Object.values(tasks).flat(),...done].forEach(t=>{nid=Math.max(nid,t.id+1);(t.subs||[]).forEach(s=>nid=Math.max(nid,s.id+1));});
+  col={am:false,pm:false,night:false};
+  frozen=false;shards=[];leaves=[];
+  document.getElementById('wl').style.height='0';
+  document.getElementById('ic').style.opacity='0';
+  updDateUI();ra();updW();drawSK();
+}
+
+function updDateUI(){
+  const parts=viewDateStr.split('-').map(Number);
+  const d=new Date(parts[0],parts[1]-1,parts[2]);
+  document.getElementById('dl').textContent=`${parts[0]}年${parts[1]}月${parts[2]}日（${'日月火水木金土'[d.getDay()]}）`;
+  const badge=document.getElementById('date-badge');
+  const title=document.getElementById('hd-title');
+  if(isToday()){badge.textContent='今日';badge.className='date-badge today';title.textContent='今日のタスク';}
+  else if(isPast()){badge.textContent='過去';badge.className='date-badge past';title.textContent='過去のタスク';}
+  else{badge.textContent='予定';badge.className='date-badge future';title.textContent='予定のタスク';}
+}
 
 let col={am:false,pm:false,night:false};
 let wo=0,ws=0,wt=0,wti=0,wp=0,wraf=null,frozen=false,shards=[];
@@ -353,13 +585,11 @@ let bgNodes=[],bgPlaying=false,musicMuted=false;
 let msOpen=true;
 let cgRaf=null;
 
-function save(){localStorage.setItem(LS_TASKS,JSON.stringify(tasks));localStorage.setItem(LS_DONE,JSON.stringify(done));}
+function save(){localStorage.setItem(lsTasksKey(viewDateStr),JSON.stringify(tasks));localStorage.setItem(lsDoneKey(viewDateStr),JSON.stringify(done));}
 function saveMindset(){const v=[...document.querySelectorAll('.mindset-input')].map(e=>e.value);localStorage.setItem(LS_MINDSET,JSON.stringify(v));}
 function loadMindset(){const v=JSON.parse(localStorage.getItem(LS_MINDSET)||'[]');document.querySelectorAll('.mindset-input').forEach((e,i)=>{if(v[i])e.value=v[i];autoResize(e);});}
 
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));
-
-document.getElementById('dl').textContent=(()=>{const n=new Date();return n.getFullYear()+'年'+(n.getMonth()+1)+'月'+n.getDate()+'日（'+'日月火水木金土'[n.getDay()]+'）';})();
 
 // ── Audio Context ─────────────────────────────
 function gc(){
@@ -756,7 +986,7 @@ function resetAll(){
   document.getElementById('wl').style.height='0';
   document.getElementById('ic').style.opacity='0';
   document.getElementById('sk').style.height='0';
-  ra();updW();drawSK();
+  ra();updW();drawSK();updDateUI();
 }
 
 function confirmReset(){
@@ -856,7 +1086,141 @@ function sd(e,row,bk,isT){
 }
 
 window.addEventListener('resize',()=>{if(!frozen)updW();drawSK();});
-ra();updW();drawSK();loadMindset();
+
+// ── Screen Management ─────────────────────────
+let currentScreen='calendar';
+let viewDayStr=todayStr;
+
+function goScreen(name){
+  currentScreen=name;
+  document.getElementById('screen-calendar').style.display=name==='calendar'?'block':'none';
+  document.getElementById('screen-day').style.display=name==='day'?'block':'none';
+  // task screen elements
+  const onTask=name==='task';
+  document.querySelector('.mindset').style.display=onTask?'':'none';
+  document.querySelector('.app').style.display=onTask?'':'none';
+  document.getElementById('wl').style.display=onTask?'':'none';
+  document.getElementById('musicBtn').style.display=onTask?'':'none';
+  document.getElementById('resetBtn').style.display=onTask?'':'none';
+  if(name==='calendar'){renderCal();}
+  if(name==='day'){renderDay();}
+  if(name==='task'){updDateUI();ra();updW();}
+}
+
+function goToTask(){
+  viewDateStr=viewDayStr;
+  const loaded=loadDateData(viewDateStr);
+  tasks=loaded.tasks;done=loaded.done;
+  nid=300;
+  [...Object.values(tasks).flat(),...done].forEach(t=>{nid=Math.max(nid,t.id+1);(t.subs||[]).forEach(s=>nid=Math.max(nid,s.id+1));});
+  col={am:false,pm:false,night:false};
+  frozen=false;shards=[];leaves=[];
+  goScreen('task');
+}
+
+function goToSchedule(){
+  viewDayStr=viewDateStr;
+  goScreen('day');
+}
+
+// ── Calendar ──────────────────────────────────
+let calYear,calMonth;
+(function(){const d=new Date();calYear=d.getFullYear();calMonth=d.getMonth();})();
+
+function calNav(dir){
+  calMonth+=dir;
+  if(calMonth<0){calMonth=11;calYear--;}
+  if(calMonth>11){calMonth=0;calYear++;}
+  renderCal();
+}
+
+function getEvents(dk){return JSON.parse(localStorage.getItem('schedule_'+dk)||'[]');}
+function saveEvents(dk,evs){localStorage.setItem('schedule_'+dk,JSON.stringify(evs));}
+
+function renderCal(){
+  const months=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  document.getElementById('cal-month-label').textContent=calYear+'年'+months[calMonth];
+  const grid=document.getElementById('cal-grid');
+  grid.innerHTML='';
+  const first=new Date(calYear,calMonth,1);
+  const startOffset=(first.getDay()+6)%7; // Mon=0
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+
+  for(let i=0;i<startOffset;i++){
+    const el=document.createElement('div');
+    el.className='cal-cell cal-empty';
+    grid.appendChild(el);
+  }
+
+  for(let d=1;d<=daysInMonth;d++){
+    const dk=calYear+'-'+(calMonth+1)+'-'+d;
+    const date=new Date(calYear,calMonth,d);
+    const isTod=dk===todayStr;
+    const isSun=date.getDay()===0;
+    const el=document.createElement('div');
+    let cls='cal-cell'+(isTod?' cal-today':'')+(isSun&&!isTod?' cal-sun':'');
+    el.className=cls;
+
+    const td=loadDateData(dk);
+    const allT=[...Object.values(td.tasks).flat()];
+    const hasTask=allT.length>0||td.done.length>0;
+    const evs=getEvents(dk);
+
+    let dots='';
+    if(hasTask)dots+='<span class="cal-dot cal-dot-task"></span>';
+    if(evs.length)dots+='<span class="cal-dot cal-dot-event"></span>';
+
+    const firstEv=evs.length?'<div class="cal-ev-text">'+evs[0].text.substring(0,6)+'</div>':'';
+
+    el.innerHTML='<div class="cal-num">'+d+'</div>'+(dots?'<div class="cal-dots">'+dots+'</div>':'')+firstEv;
+    el.addEventListener('click',()=>{viewDayStr=dk;goScreen('day');});
+    grid.appendChild(el);
+  }
+}
+
+// ── Day Detail ────────────────────────────────
+function renderDay(){
+  const parts=viewDayStr.split('-').map(Number);
+  const d=new Date(parts[0],parts[1]-1,parts[2]);
+  const dow='日月火水木金土'[d.getDay()];
+  document.getElementById('day-title').textContent=parts[0]+'年'+parts[1]+'月'+parts[2]+'日（'+dow+'）';
+  const isT=viewDayStr===todayStr,isP=viewDayStr<todayStr,isF=viewDayStr>todayStr;
+  document.getElementById('day-subtitle').textContent=isT?'今日':isP?'過去の記録':'予定日';
+
+  const evs=getEvents(viewDayStr);
+  const list=document.getElementById('day-events-list');
+  if(!evs.length){
+    list.innerHTML='<div class="day-ev-empty">予定なし</div>';
+  } else {
+    list.innerHTML=evs.map((ev,i)=>
+      '<div class="day-ev-item"><span class="day-ev-text-el">'+ev.text+'</span><button class="day-ev-del" onclick="deleteDayEvent('+i+')">×</button></div>'
+    ).join('');
+  }
+
+  const inp=document.getElementById('day-event-input');
+  if(inp)inp.addEventListener('keydown',e=>{if(e.key==='Enter')addDayEvent();});
+}
+
+function addDayEvent(){
+  const inp=document.getElementById('day-event-input');
+  const text=inp.value.trim();if(!text)return;
+  const evs=getEvents(viewDayStr);
+  evs.push({text});
+  saveEvents(viewDayStr,evs);
+  inp.value='';
+  renderDay();
+}
+
+function deleteDayEvent(idx){
+  const evs=getEvents(viewDayStr);
+  evs.splice(idx,1);
+  saveEvents(viewDayStr,evs);
+  renderDay();
+}
+
+// ── Init ──────────────────────────────────────
+updDateUI();ra();updW();drawSK();loadMindset();
+goScreen('calendar');
 </script>
 </body>
 </html>
